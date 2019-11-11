@@ -14,12 +14,6 @@ connection.connect(err => {
 		console.log('THERE WAS AN ERROR: ',err)
 	else
 		console.log('SUCCESSFULLY connected to mysql')
-//	connection.query(QUERY, (error, results, fields) => {
-//		if(error)
-//			console.log("error")
-//		console.log('the solution is', results)
-//	});
-
 });
 
 app.listen(4000, () => {
@@ -28,7 +22,6 @@ app.listen(4000, () => {
 
 console.log('this happened')
 
-//insert phdstudent richard white
 app.post('/students', (req, res) => {
 	const student = req.body
 	insertq = `INSERT INTO PHDSTUDENT VALUES("abcdef", "${student.FName}", "${student.LName}", "${student.StSem}", "${student.StYear}", "AO5671");`
@@ -47,7 +40,6 @@ app.post('/students', (req, res) => {
 	
 
     res.send("hello")
-    //res.status(200).send("world")
 })
 
 app.delete('/students', (req, res) => {
@@ -61,7 +53,6 @@ app.delete('/students', (req, res) => {
 	});
 
     res.send("hello")
-    //res.status(200).send("world")
 })
 
 app.patch('/instructor', (req, res) => {
@@ -75,12 +66,10 @@ app.patch('/instructor', (req, res) => {
 	});
 
     res.send("hello")
-    //res.status(200).send("world")
 })
 
 app.get('/student', (req, res) => {
 	const StudentId = url.parse(req.url).query;
-	//console.log(student)
 	updateq = `SELECT * FROM PHDSTUDENT NATURAL JOIN MILESTONESPASSED WHERE StudentId = '${StudentId}';`
 	connection.query(updateq, (error, results, fields) => {
 		if(error)
@@ -89,9 +78,5 @@ app.get('/student', (req, res) => {
 		res.send(results)
 	});
 
-    //res.status(200).send("world")
 })
-
-//const dataRoutes = require('./routes/students')
-//app.use('/', dataRoutes)
 

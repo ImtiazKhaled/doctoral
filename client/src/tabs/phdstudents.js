@@ -1,51 +1,99 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Table, Button, Modal } from 'antd'
+import StudentForm from '../forms/studentForm'
 
 const columns = [
     {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
+        title: 'Student ID',
+        dataIndex: 'StudentId',
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: 'First Name',
+        dataIndex: 'FName',
     },
     {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
+        title: 'Last Name',
+        dataIndex: 'LName',
+    },
+    {
+        title: 'Start Semester',
+        dataIndex: 'StSem',
+    },
+    {
+        title: 'Start Year',
+        dataIndex: 'StYear',
+    },
+    {
+        title: 'Milestone ID',
+        dataIndex: 'MId',
+    },
+    {
+        title: 'Pass Date',
+        dataIndex: 'PassDate',
     },
 ]
 
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-    },
-];
+class PHDStudents extends React.Component {
 
-class PhdStudents extends React.Component {
+    state = {
+        students: [],
+        visible: false
+    }
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+
+    handleOk = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleCancel = e => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    getStudents = e => {
+        fetch('http://hughboy.com:9875/students')
+            .then(response => response.json())
+            .then(data =>
+                this.setState({
+                    students: [
+                        ...this.state.students,
+                        data,
+                    ]
+                })
+            );
+    }
+
+    addStudent = e => {
+
+    }
+
     render() {
         return (
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <div>
+                <Button onClick={this.getStudents}>Get Students</Button>
+                <Button onClick={this.showModal}>Add Student</Button>
+                <Table columns={columns} dataSource={this.state.students[0]} pagination={false} />
+                <Modal
+                    title="Add Student"
+                    visible={this.state.visible}
+                    onCancel={this.handleCancel}
+                    footer={null}
+                >
+                <StudentForm />       
+                </Modal>
+            </div>
         )
     }
 }
 
-export default PhdStudents
+export default PHDStudents

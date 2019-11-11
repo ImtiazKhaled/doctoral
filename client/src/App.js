@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import { Tabs } from 'antd'
 import PHDStudents from './tabs/phdstudents'
-
+import Instructor from './tabs/instructor'
 
 
 class App extends React.Component {
@@ -13,11 +13,8 @@ class App extends React.Component {
           <PHDStudents />
         </Tabs.TabPane>
         <Tabs.TabPane tab="Instructors" key="2">
-          Content of Tab Pane 2
-      </Tabs.TabPane>
-        <Tabs.TabPane tab="Courses" key="3">
-          Content of Tab Pane 3
-      </Tabs.TabPane>
+          <Instructor />
+        </Tabs.TabPane>
       </Tabs>
     )
   }
