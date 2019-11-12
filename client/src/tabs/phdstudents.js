@@ -1,51 +1,119 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Table, Button, Modal } from 'antd'
+import Formstudent from '../forms/studentForm'
 
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-]
+class PHDStudents extends React.Component {
+    state = {
+        students: [],
+        visible: false
+    }
 
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-    },
-];
+    columns = [
+        {
+            title: 'Student ID',
+            dataIndex: 'StudentId',
+        },
+        {
+            title: 'First Name',
+            dataIndex: 'FName',
+        },
+        {
+            title: 'Last Name',
+            dataIndex: 'LName',
+        },
+        {
+            title: 'Start Semester',
+            dataIndex: 'StSem',
+        },
+        {
+            title: 'Start Year',
+            dataIndex: 'StYear',
+        },
+        {
+            title: 'Milestone ID',
+            dataIndex: 'MId',
+        },
+        {
+            title: 'Pass Date',
+            dataIndex: 'PassDate',
+        },
+        {
+            title: 'Action', dataIndex: '', key: 'operation', width: '32 % ', render: (text, record, index) => { return <Button onClick={this.onDelete.bind(this, record)} icon='delete' /> }
+        }
+    ]
 
-class PhdStudents extends React.Component {
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        })
+    }
+
+    handleCancel = e => {
+        console.log(e)
+        this.setState({
+            visible: false,
+        })
+    }
+
+    getStudents = e => {
+        fetch('http://hughboy.com:9875/students')
+            .then(response => response.json())
+            .then(data =>
+                this.setState({
+                    students: data
+                })
+            )
+    }
+
+    onDelete(index) {
+        const body = {
+            FName: index.FName,
+            LName: index.LName,
+        }
+
+        fetch('http://hughboy.com:9875/student', {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        }).then(response => {
+            fetch('http://hughboy.com:9875/students')
+                .then(response => response.json())
+                .then(data =>
+                    this.setState({
+                        students: data
+                    })
+                )
+        })
+            .catch(error => {
+                console.log(error)
+        })
+
+    }
+
     render() {
         return (
-            <Table columns={columns} dataSource={data} pagination={false} />
+            <div>
+                <Button onClick={this.getStudents}>Get Students</Button>
+                <Button onClick={this.showModal}>Add Student</Button>
+                <Table
+                    columns={this.columns}
+                    dataSource={this.state.students}
+                    pagination={false} />
+                <Modal
+                    title="Add Student"
+                    visible={this.state.visible}
+                    onCancel={this.handleCancel}
+                    footer={null}
+                >
+                    <Formstudent />
+                </Modal>
+            </div>
         )
     }
 }
 
-export default PhdStudents
+export default PHDStudents
