@@ -1,7 +1,6 @@
 import React from 'react'
 import { Form, Input, Select, Button, DatePicker } from 'antd';
 const { MonthPicker } = DatePicker;
-const Option = { Select }
 
 class StudentForm extends React.Component {
     state = {
