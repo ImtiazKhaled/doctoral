@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Input, Select, Button, DatePicker } from 'antd';
-import {location} from '../../../locations'
+import {location} from '../locations'
 const { MonthPicker } = DatePicker;
 
 class StudentForm extends React.Component {

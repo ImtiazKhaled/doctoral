@@ -1,1 +1,2 @@
-exports.location = 'http://hughboy.com:'+exports.port
+const port = '9875'
+export const location = 'http://hughboy.com:'+port+'/'

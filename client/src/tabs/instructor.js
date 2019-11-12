@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Button, Modal } from 'antd'
 import FormInstructor from '../forms/instructorForm'
-import {location} from '../../../locations'
+import {location} from '../locations'
 
 class Instructor extends React.Component {
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Input, Select, Button } from 'antd';
-import {location} from '../../../locations'
+import {location} from '../locations'
 
 
 class InstructorForm extends React.Component {
