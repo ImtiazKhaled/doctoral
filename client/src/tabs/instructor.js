@@ -63,15 +63,12 @@ class Instructor extends React.Component {
         })
     }
 
-    getStudents = e => {
+    getInstructors = e => {
         fetch('http://hughboy.com:9875/instructors')
             .then(response => response.json())
             .then(data =>
                 this.setState({
-                    instructors: [
-                        ...this.state.instructors,
-                        data,
-                    ]
+                    instructors: data
                 })
             )
     }
@@ -79,11 +76,11 @@ class Instructor extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={this.getStudents}>Get Instructors</Button>
+                <Button onClick={this.getInstructors}>Get Instructors</Button>
                 <Table
                     rowKey={instructor => instructor.InstructorId}
                     columns={this.columns}
-                    dataSource={this.state.instructors[0]}
+                    dataSource={this.state.instructors}
                     pagination={false} />
                 <Modal
                     title="Edit Instructor"
@@ -91,7 +88,36 @@ class Instructor extends React.Component {
                     onCancel={this.handleCancel}
                     footer={null}
                 >
-                    <FormInstructor info={this.state.instructor_to_edit} />
+                    <FormInstructor
+                        info={this.state.instructor_to_edit}
+                        editInstructor={(props) => {
+                            const body = {
+                                ToType: props.NewType,
+                                InstructorId: this.state.instructor_to_edit.InstructorId,
+                                FromType: this.state.instructor_to_edit.Type
+                            }
+                            fetch('http://hughboy.com:9875/instructor', {
+                                method: 'PATCH',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(body)
+                            }).then(response => {
+                                fetch('http://hughboy.com:9875/instructors')
+                                    .then(response => response.json())
+                                    .then(data =>
+                                        this.setState({
+                                            instructors: data,
+                                            visible: false
+                                        })
+                                    )
+                            })
+                                .catch(error => {
+                                    console.log(error)
+                            })
+                        }}
+                    />
                 </Modal>
             </div>
         )

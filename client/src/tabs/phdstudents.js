@@ -38,8 +38,7 @@ class PHDStudents extends React.Component {
             dataIndex: 'PassDate',
         },
         {
-            title:'Action', dataIndex: '', key:'operation', width:'32 % ', render: (text, record, index) =>
-                {return <Button onClick={this.onDelete.bind(this, record)} icon='delete'/>}
+            title: 'Action', dataIndex: '', key: 'operation', width: '32 % ', render: (text, record, index) => { return <Button onClick={this.onDelete.bind(this, record)} icon='delete' /> }
         }
     ]
 
@@ -62,16 +61,37 @@ class PHDStudents extends React.Component {
             .then(response => response.json())
             .then(data =>
                 this.setState({
-                    students: [
-                        ...this.state.students,
-                        data,
-                    ]
+                    students: data
                 })
             )
     }
 
-    onDelete(index){
-        console.log(index)
+    onDelete(index) {
+        const body = {
+            FName: index.FName,
+            LName: index.LName,
+        }
+
+        fetch('http://hughboy.com:9875/student', {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        }).then(response => {
+            fetch('http://hughboy.com:9875/students')
+                .then(response => response.json())
+                .then(data =>
+                    this.setState({
+                        students: data
+                    })
+                )
+        })
+            .catch(error => {
+                console.log(error)
+        })
+
     }
 
     render() {
@@ -79,9 +99,9 @@ class PHDStudents extends React.Component {
             <div>
                 <Button onClick={this.getStudents}>Get Students</Button>
                 <Button onClick={this.showModal}>Add Student</Button>
-                <Table 
+                <Table
                     columns={this.columns}
-                    dataSource={this.state.students[0]}
+                    dataSource={this.state.students}
                     pagination={false} />
                 <Modal
                     title="Add Student"
