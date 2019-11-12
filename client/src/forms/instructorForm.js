@@ -1,5 +1,7 @@
 import React from 'react'
 import { Form, Input, Select, Button } from 'antd';
+import {location} from '../../../locations'
+
 
 class InstructorForm extends React.Component {
     state = {
@@ -12,25 +14,6 @@ class InstructorForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 this.props.editInstructor(values)
-                // const body = {
-                //     ToType:
-                //     FromType:
-                //     InstructorId:
-                // }
-                
-                // fetch('http://hughboy.com:9875/student', {
-                //     method: 'PATCH',
-                //     headers: {
-                //         Accept: 'application/json',
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify(student)
-                // }).then(response => {
-                //     console.log(response)
-                // })
-                //     .catch(error => {
-                //         console.log(error)
-                //     })
             }
         });
     };

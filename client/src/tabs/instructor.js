@@ -1,6 +1,7 @@
 import React from 'react'
 import { Table, Button, Modal } from 'antd'
 import FormInstructor from '../forms/instructorForm'
+import {location} from '../../../locations'
 
 class Instructor extends React.Component {
 
@@ -64,7 +65,7 @@ class Instructor extends React.Component {
     }
 
     getInstructors = e => {
-        fetch('http://hughboy.com:9875/instructors')
+        fetch(location+'instructors')
             .then(response => response.json())
             .then(data =>
                 this.setState({

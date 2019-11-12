@@ -1,6 +1,8 @@
 import React from 'react'
 import { Table, Button, Modal } from 'antd'
 import Formstudent from '../forms/studentForm'
+import {location} from '../locations'
+
 
 class PHDStudents extends React.Component {
     state = {

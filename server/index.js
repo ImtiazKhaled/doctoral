@@ -1,10 +1,10 @@
+import {port} from '../locations'
 const app = require('express')()
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 const cred = require('./.credentials.js').cred
 const url = require('url')
-
-const port = 9875
+// const port = 9875
 
 app.use(bodyParser.json())
 
@@ -29,15 +29,9 @@ app.listen(port, () => {
     console.log("server started on port", port)
 })
 
-<<<<<<< HEAD
 //insert phdstudent richard white
 app.post('/student', (req, res) => {
 	console.log('got a post request')
-=======
-console.log('this happened')
-
-app.post('/students', (req, res) => {
->>>>>>> a3172ecc444d7d7fb9c65f0302b9e373edd7cd75
 	const student = req.body
 	let id = student.FName[0] + student.LName[1] + student.StSem;
 	insertq = `INSERT INTO PHDSTUDENT VALUES("${id}", "${student.FName}", "${student.LName}", "${student.StSem}", "${student.StYear}", "${student.Supervisor}");`
@@ -59,13 +53,7 @@ app.post('/students', (req, res) => {
 			return;
 		}
 	});
-<<<<<<< HEAD
 	res.send('success')
-=======
-	
-
-    res.send("hello")
->>>>>>> a3172ecc444d7d7fb9c65f0302b9e373edd7cd75
 })
 
 app.delete('/student', (req, res) => {
@@ -81,11 +69,7 @@ app.delete('/student', (req, res) => {
 		}
 	});
 
-<<<<<<< HEAD
 	res.send('success')
-=======
-    res.send("hello")
->>>>>>> a3172ecc444d7d7fb9c65f0302b9e373edd7cd75
 })
 
 app.patch('/instructor', (req, res) => {
@@ -100,12 +84,7 @@ app.patch('/instructor', (req, res) => {
 			return;
 		}
 	});
-<<<<<<< HEAD
 	res.send('success')
-=======
-
-    res.send("hello")
->>>>>>> a3172ecc444d7d7fb9c65f0302b9e373edd7cd75
 })
 
 app.get('/student', (req, res) => {
@@ -123,7 +102,6 @@ app.get('/student', (req, res) => {
 
 })
 
-<<<<<<< HEAD
 app.get('/students', (req, res) => {
 	//const StudentId = url.parse(req.url).query;
 	//console.log(student)
@@ -183,5 +161,3 @@ app.get('/teachers', (req, res) => {
 
 
 
-=======
->>>>>>> a3172ecc444d7d7fb9c65f0302b9e373edd7cd75
