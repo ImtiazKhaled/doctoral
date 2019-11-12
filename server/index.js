@@ -15,8 +15,8 @@ app.use(function(req, res, next) {
 	next();
 });
 
-console.log('cred = ', cred)
-console.log('port = ', port)
+//console.log('cred = ', cred) 
+//console.log('port = ', port)
 
 var connection = mysql.createConnection(cred)
 connection.connect(err => {
