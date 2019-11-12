@@ -1,8 +1,8 @@
-import {port} from '../locations'
 const app = require('express')()
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
-const cred = require('./.credentials.js').cred
+const cred = require('../.credentials.js').cred
+const port = require('../locations.js').port
 const url = require('url')
 // const port = 9875
 
@@ -15,7 +15,8 @@ app.use(function(req, res, next) {
 	next();
 });
 
-//console.log('cred = ', cred)
+console.log('cred = ', cred)
+console.log('port = ', port)
 
 var connection = mysql.createConnection(cred)
 connection.connect(err => {
