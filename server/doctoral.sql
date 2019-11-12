@@ -150,3 +150,79 @@ CREATE TABLE PHDCOMMITTEE(
 	FOREIGN KEY(InstructorId) REFERENCES INSTRUCTOR(InstructorId)
 );
 
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_Course.txt'
+INTO TABLE COURSE
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_Section.txt'
+INTO TABLE SECTION
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_Instructor.txt'
+INTO TABLE INSTRUCTOR
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_TT.txt'
+INTO TABLE TT
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_Grants.txt'
+INTO TABLE GRANTS
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_PhDStudent.txt'
+INTO TABLE PHDSTUDENT
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_GTA.txt'
+INTO TABLE GTA
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_GRA.txt'
+INTO TABLE GRA
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_SelfSupport.txt'
+INTO TABLE SELFSUPPORT
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_ScholarshipSupport.txt'
+INTO TABLE SCHOLARSHIPSUPPORT
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_CoursesTaught.txt'
+INTO TABLE COURSESTAUGHT
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_Milestone.txt'
+INTO TABLE MILESTONE
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_MilestonesPassed.txt'
+INTO TABLE MILESTONESPASSED
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_GrantAssociated.txt'
+INTO TABLE GRANTSASSOCIATED
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/home/hughleeboy/doctoral/server/Dataset/_PhDCommittee.txt'
+INTO TABLE PHDCOMMITTEE
+FIELDS TERMINATED BY ','
+IGNORE 1 ROWS;
+
+

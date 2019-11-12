@@ -1,4 +1,4 @@
-dir = '/home/houses/mysql/Dataset/'
+dir = '/home/hughleeboy/doctoral/server/Dataset/'
 
 tables = [
 ['_Course.txt', 'COURSE'],
