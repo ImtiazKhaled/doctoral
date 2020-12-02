@@ -15,9 +15,6 @@ app.use(function(req, res, next) {
 	next();
 });
 
-//console.log('cred = ', cred) 
-//console.log('port = ', port)
-
 var connection = mysql.createConnection(cred)
 connection.connect(err => {
 	if(err)
@@ -35,7 +32,7 @@ app.post('/student', (req, res) => {
 	console.log('got a post request')
 	const student = req.body
 	let id = student.FName[0] + student.LName[1] + student.StSem;
-	insertq = `INSERT INTO PHDSTUDENT VALUES("${id}", "${student.FName}", "${student.LName}", "${student.StSem}", "${student.StYear}", "${student.Supervisor}");`
+	insertq = `INSERT INTO PHDSTUDENT(StudentId, FName, LName, StSem, StYear, Supervisor) VALUES("${id}", "${student.FName}", "${student.LName}", "${student.StSem}", "${student.StYear}", "${student.Supervisor}");`
 	console.log(insertq);
 	connection.query(insertq, (error, results, fields) => {
 		if(error){
@@ -45,8 +42,8 @@ app.post('/student', (req, res) => {
 		}
 	});
 
-	insertq2 = `INSERT INTO ${student.Type} VALUES("${id}");`
-	console.log(insertq);
+	insertq2 = `INSERT INTO ${student.Type}(StudentId) VALUES("${id}");`
+	console.log(insertq2);
 	connection.query(insertq2, (error, results, fields) => {
 		if(error){
 			console.log('SQL ERROR', error)
@@ -106,7 +103,7 @@ app.get('/student', (req, res) => {
 app.get('/students', (req, res) => {
 	//const StudentId = url.parse(req.url).query;
 	//console.log(student)
-	selectq = `SELECT CONCAT(StudentId, MId) AS 'key', StudentId, FName, LName, StSem, StYear, Supervisor, MId, PassDate  FROM PHDSTUDENT NATURAL JOIN MILESTONESPASSED`
+	selectq = `SELECT CONCAT(PHDSTUDENT.StudentId, MId) AS 'key', PHDSTUDENT.StudentId, FName, LName, StSem, StYear, Supervisor, MId, PassDate  FROM PHDSTUDENT LEFT JOIN MILESTONESPASSED ON PHDSTUDENT.StudentId = MILESTONESPASSED.StudentId`
 	console.log(selectq);
 	connection.query(selectq, (error, results, fields) => {
 		if(error){
@@ -136,7 +133,7 @@ app.get('/instructors', (req, res) => {
 })
 
 app.get('/teachers', (req, res) => {
-	selectq = `SELECT DISTINCT InstructorId, FName, LName FROM INSTRUCTOR NATURAL JOIN COURSESTAUGHT`
+	selectq = `SELECT DISTINCT InstructorId, FName, LName, InstructorId FROM INSTRUCTOR WHERE Type = "TT"`
 	console.log(selectq);
 	connection.query(selectq, (error, results, fields) => {
 		if(error){
